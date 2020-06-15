@@ -8,9 +8,9 @@
 # read_xml("Logs/Train/Person_1/Sysmon.xml")
 import xml.etree.ElementTree as ET
 
-xmltree = ET.parse("Logs/Train/Person_1/Sysmon.xml")
+xmltree = ET.parse("Logs/Train/Person_6/Security.xml")
 elemList = []
-for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Execution"):
+for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Correlation"):
     # elemList.append(elem.tag)
     print(elem.attrib)
 # elemList = list(set(elemList))
