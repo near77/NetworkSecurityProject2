@@ -10,22 +10,39 @@ def user_classify(Data_dir):
     test_sets = os.listdir(Data_dir)
     for test_set in test_sets:
         sysmon = Data_dir+"/"+test_set+"/Sysmon.xml"
-        xmltree = ET.parse(sysmon)
-        flag = 0
-        for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Execution"):
-            try:
-                print(test_set, ": ", person[elem.attrib["ProcessID"]])
-                flag = 1
-            except:
-                pass
-            break
-        if flag == 0:
-            security = Data_dir+"/"+test_set+"/Security.xml"
-            xmltree = ET.parse(security)
-            for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Correlation"):
+        security = Data_dir+"/"+test_set+"/Security.xml"
+        try:
+            xmltree = ET.parse(sysmon)
+            flag = 0
+            for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Execution"):
                 try:
-                    print(test_set, ": ", person[elem.attrib["ActivityID"]])
+                    print(test_set, ": ", person[elem.attrib["ProcessID"]])
+                    flag = 1
                 except:
-                    print(test_set, ":  person", random.randint(1,7))
+                    pass
                 break
+            if flag == 0:
+                xmltree = ET.parse(security)
+                for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Correlation"):
+                    try:
+                        print(test_set, ": ", person2[elem.attrib["ActivityID"]])
+                    except:
+                        print(test_set, ":  person", random.randint(1,6))
+                    break
+        except:
+            try:
+                xmltree = ET.parse(security)
+                flag = 0
+                for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Correlation"):
+                    try:
+                        print(test_set, ": ", person2[elem.attrib["ActivityID"]])
+                        flag = 1
+                        break
+                    except:
+                        # print(test_set, ":  person", random.randint(1,6))
+                        pass
+                if flag == 0:
+                    print(test_set, ":  person", random.randint(1,6))
+            except:
+                print(test_set, ":  person", random.randint(1,6))
         

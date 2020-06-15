@@ -12,7 +12,7 @@ xmltree = ET.parse("Logs/Train/Person_6/Security.xml")
 elemList = []
 for elem in xmltree.iter("{http://schemas.microsoft.com/win/2004/08/events/event}Correlation"):
     # elemList.append(elem.tag)
-    print(elem.attrib)
+    print(elem.attrib["ActivityID"])
 # elemList = list(set(elemList))
 # for tag in elemList:
 #     print(tag)
